@@ -67,13 +67,14 @@
   :type 'hook
   :group 'j)
 
+(makunbound 'j-mode-map)
 (defvar j-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c !")   'j-console)
     (define-key map (kbd "C-c C-c") 'j-console-execute-buffer)
     (define-key map (kbd "C-c C-r") 'j-console-execute-region)
     (define-key map (kbd "C-c C-l") 'j-console-execute-line)
-    (define-key map (kbd "C-c h")   'j-help-lookup-symbol)
+    (define-key map (kbd "C-c C-d") 'j-help-lookup-symbol)
     (define-key map (kbd "C-c C-h") 'j-help-lookup-symbol-at-point)
     map)
   "Keymap for J major mode")
@@ -111,6 +112,8 @@
          ;;(font-lock-mark-block-function . mark-defun)
          (font-lock-syntactic-face-function
           . j-font-lock-syntactic-face-function)))
+  (setq-local font-lock-extra-managed-props
+              (cons 'composition font-lock-extra-managed-props))
   (run-mode-hooks 'j-mode-hook))
 
 
